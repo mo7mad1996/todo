@@ -1,0 +1,93 @@
+.todo {
+  background-color: white;
+  padding: 0em 1em;
+  border-radius: 0.5em;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+  margin: 2em 0;
+}
+
+.todo ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.todo ul li {
+  border-bottom: 2px solid #eee;
+  padding: 0.6em 0;
+}
+.todo ul li.completed {
+  color: #7e7e7e;
+}
+
+.todo ul li .task {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  border-radius: 5px;
+  padding: 0.6em 5px;
+  transition: 0.3s;
+}
+.todo ul li .task:hover {
+  background: #f8f0ff;
+}
+.todo ul li .task button {
+  aspect-ratio: 1 / 1;
+  font-size: 1.3em;
+}
+.todo button {
+  height: 2em;
+  margin: -1em 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: none;
+  line-height: 1;
+  background: none;
+  color: inherit;
+  border: none;
+  border-radius: 5px;
+}
+
+.todo ul li .task span {
+  flex: 1;
+}
+
+.todo ul li .task .remove {
+  opacity: 0;
+  transition: 0.4s;
+}
+.todo ul li:hover .task .remove {
+  opacity: 1;
+}
+
+.todo footer {
+  padding: 1em 0.6em 1.6em;
+  font-size: 0.8em;
+  color: #555;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  outline: none;
+}
+
+.todo footer button:focus,
+.todo footer button:hover {
+  text-decoration: underline;
+}
+
+.todo footer .flex {
+  display: flex;
+  gap: 1em;
+}
+.todo footer .flex .active {
+  color: #c848f7;
+  font-weight: bold;
+  text-shadow: 0 0 1.6em #831ba9;
+  text-decoration: underline;
+}
+
+.todo footer .flex button {
+  text-transform: capitalize;
+}

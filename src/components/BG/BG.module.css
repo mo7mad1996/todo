@@ -1,0 +1,23 @@
+.bg {
+  width: 90%;
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  margin: 0 auto -200px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  border-radius: 0 0 30px 30px;
+}
+
+.bg img {
+  display: block;
+  width: 100%;
+}
+
+.bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(#c73f3f2e, #3f3fc72e);
+}
