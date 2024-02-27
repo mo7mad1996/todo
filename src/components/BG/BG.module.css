@@ -1,6 +1,6 @@
 .bg {
   width: 90%;
-  height: 300px;
+  max-height: 300px;
   overflow: hidden;
   display: flex;
   margin: 0 auto -200px;
