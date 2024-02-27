@@ -1,5 +1,7 @@
 # TODO APP
 
+![Todo](https://todo-mohamed.netlify.app/favicon.ico)
+
 ### useing react.js
 
 clone this project and start with nodejs by commands
@@ -20,7 +22,7 @@ you will install:
 
 ---
 
-todo app you can use it live in [this link]().
+todo app you can use it live in [this link](https://todo-mohamed.netlify.app).
 
 This application also owned by [Mohamed Ibrahim](https://portfolio-mohamed-ibrahim.onrender.com).
 

@@ -35,6 +35,7 @@ function Form({ setTasks }) {
     <form className={css.form} ref={form} onSubmit={addTask}>
       <input
         placeholder="Start typing..."
+        autoFocus
         onFocus={focus}
         onBlur={blur}
         value={text}
