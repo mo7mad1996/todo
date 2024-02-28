@@ -3,8 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import css from "./style.module.css";
 
 const Item = memo(({ task, setTasks }) => {
-  console.log("render");
-
   // methods
   function removeTask(id) {
     setTasks((old) => {
