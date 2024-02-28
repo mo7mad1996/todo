@@ -1,6 +1,8 @@
 import React from "react";
 import css from "./style.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// components
+import Item from "./Item";
 
 function List({ tasks, setTasks }) {
   const [active, setActive] = React.useState("all");
@@ -23,59 +25,17 @@ function List({ tasks, setTasks }) {
   }, [active, tasks]);
 
   // methods
-  function removeTask(id) {
-    setTasks((old) => {
-      const newTaskList = old.filter((el) => el.id !== id);
-
-      return newTaskList;
-    });
+  function clearCompleted() {
+    return setTasks((old) => old.filter((el) => el.isActive));
   }
 
-  const clearCompleted = () =>
-    setTasks((old) => old.filter((el) => el.isActive));
-
-  function completeTask(id) {
-    setTasks((old) => {
-      return old.map((el) => {
-        if (el.id === id) {
-          const task = { ...el }; // clone a new copy
-          task.isActive = !task.isActive;
-
-          return task;
-        }
-
-        return el;
-      });
-    });
-  }
-
+  // components
   // list items
   const List = state.map((task) => (
-    <li
-      key={task.id}
-      title={task.title}
-      className={task.isActive ? "" : css.completed}
-    >
-      <div className={css.task}>
-        <button title="completed" onClick={() => completeTask(task.id)}>
-          {task.isActive ? (
-            <FontAwesomeIcon icon="fa-solid fa-minus" />
-          ) : (
-            <FontAwesomeIcon icon="fa-solid fa-check" />
-          )}
-        </button>
-        <span>{task.title}</span>
-        <button
-          className={css.remove}
-          onClick={() => removeTask(task.id)}
-          title="Delete Task"
-        >
-          <FontAwesomeIcon icon="fa-solid fa-trash" />
-        </button>
-      </div>
-    </li>
+    <Item key={task.id} task={task} setTasks={setTasks} />
   ));
 
+  // buttons
   const filtered = ["all", "active", "completed"].map((type) => (
     <button
       key={type}

@@ -6,18 +6,17 @@ function Form({ setTasks }) {
   const [text, setText] = React.useState("");
 
   function focus() {
-    form.current.classList.add(css.active);
+    form.current.classList?.add(css.active);
   }
   function blur() {
-    form.current.classList.remove(css.active);
+    form.current.classList?.remove(css.active);
   }
 
   function addTask(e) {
     e.preventDefault();
 
-    const date = new Date();
     const task = {
-      id: Math.random() + date.getTime(),
+      id: Math.random() + Date.now(),
       isActive: true,
       title: text,
     };
@@ -48,4 +47,4 @@ function Form({ setTasks }) {
   );
 }
 
-export default Form;
+export default React.memo(Form);
