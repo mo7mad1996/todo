@@ -1,8 +1,7 @@
 // react
-import { useState, useEffect } from "react";
+import { useReducer, useEffect, memo } from "react";
 
 // font-awesome
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { faTwitter, faFontAwesome } from "@fortawesome/free-brands-svg-icons";
@@ -12,46 +11,40 @@ import BG from "./components/BG";
 import Form from "./components/form";
 import List from "./components/list";
 
+// reducer
+import reducer from "./reducer/app";
+
 // font-awesome
 library.add(fas, faTwitter, faFontAwesome);
 
+// reducer state
+const initialState = {
+  list: JSON.parse(localStorage.getItem("tasks")) || [],
+  show: "all",
+};
+
+// main component
 function App() {
   // tasks
-  const local = JSON.parse(localStorage.getItem("tasks"));
-  const [tasks, setTasks] = useState(local || []);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
+  // save the tasks each time i change it
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
+    localStorage.setItem("tasks", JSON.stringify(state.list));
+  }, [state.list]);
 
   return (
-    <>
-      <div className="App">
-        <BG />
+    <div className="App">
+      <BG />
 
-        <div className="container">
-          <h1 className="main-heading">TODO</h1>
+      <div className="container">
+        <h1 className="main-heading">TODO</h1>
 
-          <Form setTasks={setTasks} />
-          {!!tasks.length && <List tasks={tasks} setTasks={setTasks} />}
-        </div>
+        <Form dispatch={dispatch} />
+        {!!state.list.length && <List state={state} dispatch={dispatch} />}
       </div>
-
-      <footer className="footer">
-        <div className="container">
-          &copy; this app created by
-          <a
-            href="https://portfolio-mohamed-ibrahim.onrender.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Mohamed Ibrahim
-          </a>
-          <FontAwesomeIcon icon="fa-solid fa-heart" />.
-        </div>
-      </footer>
-    </>
+    </div>
   );
 }
 
-export default App;
+export default memo(App);
