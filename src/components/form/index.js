@@ -1,7 +1,7 @@
 import React from "react";
 import css from "./style.module.css";
 
-function Form({ dispatch }) {
+function Form({ setTasks }) {
   const form = React.useRef(0);
   const [text, setText] = React.useState("");
 
@@ -12,9 +12,8 @@ function Form({ dispatch }) {
     form.current.classList?.remove(css.active);
   }
 
-  const addTask = (e) => {
+  function addTask(e) {
     e.preventDefault();
-    // console.log("flag");
 
     const task = {
       id: Math.random() + Date.now(),
@@ -22,14 +21,14 @@ function Form({ dispatch }) {
       title: text,
     };
 
-    // console.log(task);
-    dispatch({
-      type: "add",
-      task,
-    });
+    setTasks((old) => {
+      const newArr = [...old];
 
+      newArr.unshift(task);
+      return newArr;
+    });
     setText("");
-  };
+  }
 
   return (
     <form className={css.form} ref={form} onSubmit={addTask}>

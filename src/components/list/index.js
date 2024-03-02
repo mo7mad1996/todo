@@ -4,44 +4,43 @@ import css from "./style.module.css";
 // components
 import Item from "./Item";
 
-export const filters = ["all", "active", "completed"];
+function List({ tasks, setTasks }) {
+  const [active, setActive] = React.useState("all");
+  const [state, setState] = React.useState([]);
 
-// main component
-function List({ state, dispatch }) {
-  /**
-   *  methods
-   */
+  React.useEffect(() => {
+    setState((_) => {
+      return tasks.filter((task) => {
+        switch (active) {
+          case "active":
+            return task.isActive;
+          case "completed":
+            return !task.isActive;
+
+          default:
+            return true;
+        }
+      });
+    });
+  }, [active, tasks]);
+
+  // methods
   function clearCompleted() {
-    dispatch({ type: "clearCompleted" });
+    return setTasks((old) => old.filter((el) => el.isActive));
   }
 
+  // components
   // list items
-  const readyToShow = state.list.filter((task) => {
-    switch (state.show) {
-      case "active":
-        return task.isActive;
-      case "completed":
-        return !task.isActive;
-
-      default:
-        return true;
-    }
-  });
-
-  /**
-   *  components
-   */
-  // list
-  const list = readyToShow.map((task) => (
-    <Item key={task.id} task={task} dispatch={dispatch} />
+  const List = state.map((task) => (
+    <Item key={task.id} task={task} setTasks={setTasks} />
   ));
 
   // buttons
-  const filtersBtns = filters.map((type) => (
+  const filtered = ["all", "active", "completed"].map((type) => (
     <button
       key={type}
-      className={state.show === type ? css.active : ""}
-      onClick={() => dispatch({ type })}
+      className={active === type ? css.active : ""}
+      onClick={() => setActive(type)}
     >
       {type}
     </button>
@@ -50,13 +49,14 @@ function List({ state, dispatch }) {
   // HTML returns
   return (
     <div className={css.todo}>
-      <ul>{list}</ul>
+      <ul>{List}</ul>
 
       <footer>
-        <div> {state.list.filter((el) => el.isActive).length} items left</div>
-        <div className={css.flex}>{filtersBtns}</div>
-
-        <button onClick={clearCompleted}>Clear Completed</button>
+        <div> {tasks.filter((el) => el.isActive).length} items left</div>
+        <div className={css.flex}>{filtered}</div>
+        <div>
+          <button onClick={clearCompleted}>Clear Completed</button>
+        </div>
       </footer>
     </div>
   );
